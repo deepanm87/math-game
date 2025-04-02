@@ -30,6 +30,37 @@ let finalTimeDisplay = '0.0s'
 
 let valueY = 0
 
+function playAgain() {
+  gamePage.addEventListener('click', startTimer)
+  scorePage.hidden = true
+  splashPage.hidden = false
+  equationsArray = []
+  playerGuessArray = []
+  valueY = 0
+  playAgainBtn.hidden = true
+}
+
+function showScorePage() {
+  setTimeout( () => {
+    playAgainBtn.hidden = false
+  }, 1000)
+  gamePage.hidden = true
+  scorePage.hidden = false
+}
+
+function scoresToDOM() {
+  finalDisplayTime = finalTime.toFixed(1)
+  baseTime = timePlayed.toFixed(1)
+  penaltyTime = penaltyTime.toFixed(1)
+  baseTimeEl.textContent = `Base Time: ${baseTime}`
+  penaltyTimeEl.textContent = `Penalty Time: +${penaltyTime}s`
+  finalTimeEl.textContent = `${finalTimeDisplay}s`
+  itemContainer.scrollTo(
+    { top: 0, behavior: 'instant'}
+  )
+  showScorePage()
+}
+
 function checkTime() {
   if(playerGuessArray.length ==  questionAmount) {
     clearInterval(timer)
@@ -41,6 +72,7 @@ function checkTime() {
       }
     })
     finalTime = timePlayed + penaltyTime
+    scoresToDOM()
   }
 }
 
