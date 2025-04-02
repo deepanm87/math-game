@@ -21,9 +21,41 @@ let secondNumber = 0
 let equationObject = {}
 const wrongFormat = []
 
-// Time
+let timer
+let timePlayed = 0
+let baseTime = 0
+let penaltyTime = 0
+let finalTime = 0
+let finalTimeDisplay = '0.0s'
 
 let valueY = 0
+
+function checkTime() {
+  if(playerGuessArray.length ==  questionAmount) {
+    clearInterval(timer)
+    equationsArray.forEach( (equation, index) => {
+      if(equation.evaluated === playerGuessArray[index]) {
+
+      } else {
+        penaltyTime += 0.5
+      }
+    })
+    finalTime = timePlayed + penaltyTime
+  }
+}
+
+function addTime() {
+  timePlayed += 0.1
+  checkTime()
+}
+
+function startTimer() {
+  timePlayed = 0
+  penaltyTime = 0
+  finalTime = 0
+  timer = setInterval(addTime, 100)
+  gamePage.removeEventListener('click', startTimer)
+}
 
 function select(guessedTrue) {
   valueY += 80
@@ -146,4 +178,5 @@ startForm.addEventListener('click', () => {
 })
 
 startForm.addEventListener('submit', selectQuestionAmount)
+gamePage.addEventListener('click', startTimer)
 
