@@ -15,6 +15,7 @@ const playAgainBtn = document.querySelector('.play-again')
 
 let questionAmount = 0
 let equationsArray = []
+let playerGuessArray = []
 let firstNumber = 0
 let secondNumber = 0
 let equationObject = {}
@@ -22,7 +23,13 @@ const wrongFormat = []
 
 // Time
 
-// Scroll
+let valueY = 0
+
+function select(guessedTrue) {
+  valueY += 80
+  itemContainer.scroll(0, valueY)
+  return guessedTrue ? playerGuessArray.push('true') : playerGuessArray.push('false')
+}
 
 function showGamePage() {
   gamePage.hidden = false
